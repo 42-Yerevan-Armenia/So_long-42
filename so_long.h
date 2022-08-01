@@ -25,8 +25,8 @@
 # define FLOOR "./Texture/floor.xpm"
 # define COLLECT "./Texture/collect.xpm"
 # define PLAYER "./Texture/player.xpm"
-# define TEXTURE_X 64
-# define TEXTURE_Y 64
+# define TEXTURE_X 32
+# define TEXTURE_Y 32
 
 //MAP
 typedef struct s_map
@@ -98,17 +98,16 @@ void	ft_check_map(t_map *map);
 //void	ft_mapsize(char **pam, int *width, int *height);???
 
 //LIBFT 📚
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-//size_t	ft_strlcpy(char *dst, char *src, size_t size);
+size_t	ft_strlen(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
 char	*ft_strjoin(char *s1, char const *s2);
 char	*ft_substr(char	const *s, unsigned int start, size_t len);//char const *s,
 char	**ft_split(char const *s, char c);//char const *s,
 
 //UTILES 🛠
-# define BUFFER_SIZE 100
+//# define BUFFER_SIZE 100
 char	*get_next_line(int fd);
-char	*ft_strdup(const char *s1);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(char *s1);
+char	*ft_strchr(char *s, int c);
 
 #endif

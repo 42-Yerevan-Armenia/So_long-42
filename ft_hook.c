@@ -27,7 +27,7 @@ int	ft_destroy_window(t_all *a)
 static void	ft_check_key(int keycode, t_all *a)
 {
 	char	c;
-
+printf("%d\n", keycode);
 	if (keycode == 0)
 	{
 		c = a->map.matrix[a->img.player.y][a->img.player.x - 1];
@@ -55,7 +55,7 @@ int	ft_key_press(int keycode, t_all *a)
 {
 	char	c;
 
-	if (keycode == 27)//ESC
+	if (keycode == 53)//ESC
 		ft_destroy_window(a);
 	ft_check_key(keycode, a);
 	if (keycode == 13)

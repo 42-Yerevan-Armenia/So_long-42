@@ -14,6 +14,7 @@
 
 void	ft_fill_player(t_all *a, int i, int j)
 {
+	mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
 	mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * TEXTURE_X, i * TEXTURE_Y);
 }
 

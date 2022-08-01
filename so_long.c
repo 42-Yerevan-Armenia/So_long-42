@@ -34,13 +34,14 @@ void	ft_map(t_map *map, const char *mpath)
 	fd = open(mpath, O_RDONLY);
 	if (fd == -1)
 		ft_error("❌ Can't Open MAP 🗺");
-	line = "1";
-	while (line != NULL)
+	while (1)
 	{
 		line = get_next_line(fd);
 		str = ft_strjoin(str, line);
-		free(line);
+		if (*line == (char)NULL)
+			break ;
 	}
+	free(line);
 	if (close(fd) == -1)
 		ft_error("❌ Can't close Map File 🗺");
 	map->matrix = ft_split(str, '\n');
@@ -75,6 +76,18 @@ void	ft_textures(t_img *img, void *mlx)
 	img->wall = mlx_xpm_file_to_image(mlx, WALL, &width, &height);
 	if (img->wall == NULL)
 		ft_error("❌ Can't Open Wall 🚧 Texture");
+	img->collect = mlx_xpm_file_to_image(mlx, COLLECT, &width, &height);
+	if (img->collect == NULL)
+		ft_error("Cant Open Collectible Texture");
+	img->exit = mlx_xpm_file_to_image(mlx, EXIT, &width, &height);
+	if (img->exit == NULL)
+		ft_error("Cant Open Exit Texture");
+	img->floor = mlx_xpm_file_to_image(mlx, FLOOR, &width, &height);
+	if (img->floor == NULL)
+		ft_error("Cant Open Floor Texture");
+	(img->player.ptr) = mlx_xpm_file_to_image(mlx, PLAYER, &width, &height);
+	if ((img->player.ptr) == NULL)
+		ft_error("Cant Open Player Texture");
 }
 
 int	main(int ac, char *av[])
@@ -87,9 +100,7 @@ int	main(int ac, char *av[])
 		ft_win(&a);
 		a.moves = 0;
 		ft_textures(&(a.img), a.mlx);
-		printf("%d\n", __LINE__);
 		ft_draw_map(&a);
-		printf("%d\n", __LINE__);
 		mlx_hook(a.win, 2, 0, ft_key_press, &a);
 		mlx_loop(a.mlx);
 	}

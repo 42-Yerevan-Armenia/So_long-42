@@ -12,99 +12,73 @@
 
 #include "so_long.h"
 
-static char	*ft_zero_bytes(char **backup)
+char	*mywhile(int fd, char *sline)
 {
-	char	*line;
+	char	buffer[4];
+	long	rsize;
 
-	line = ft_strdup(*backup);
-	free(*backup);
-	*backup = NULL;
-	return (line);
-}
-
-static char	*ft_check_backup(char **backup)
-{
-	char	*newline;
-	char	*temp;
-	size_t	n;
-
-	if (!(*backup))
-		return (NULL);
-	newline = NULL;
-	if (ft_strchr(*backup, '\n'))
-	{
-		n = ft_strchr(*backup, '\n') - *backup + 1;
-		newline = ft_substr(*backup, 0, n);
-		temp = ft_strdup((*backup) + n);
-		if (*temp == '\0')
-		{
-			free(temp);
-			temp = NULL;
-		}
-		free(*backup);
-		*backup = temp;
+	while (1)
+	{	
+		rsize = read(fd, buffer, 1);
+		buffer[rsize] = '\0';
+		if (rsize == -1)
+			return (0);
+		if (!sline)
+			sline = ft_strdup(buffer);
+		else
+			sline = ft_strjoin(sline, buffer);
+		if (ft_strchr(buffer, '\n') || rsize == 0)
+			break ;
 	}
-	return (newline);
+	return (sline);
 }
 
 char	*get_next_line(int fd)
 {
-	char			temp_line[BUFFER_SIZE + 1];
-	ssize_t			read_bytes;
-	static char		*backup;
-	char			*line;
+	static char	*sline;
+	char		*until_n;
+	char		*tline;
+	long		slinelen;
 
-	if (fd < 0 || fd > 65536 || BUFFER_SIZE <= 0)
+	sline = mywhile(fd, sline);
+	if (!sline)
 		return (NULL);
-	line = ft_check_backup(&backup);
-	if (line != NULL)
-		return (line);
-	read_bytes = 1;
-	while (read_bytes != 0)
-	{
-		read_bytes = read(fd, temp_line, BUFFER_SIZE);
-		if (read_bytes == -1)
-			return (NULL);
-		temp_line[read_bytes] = '\0';
-		if (read_bytes > 0)
-			backup = ft_strjoin(backup, temp_line);
-		line = ft_check_backup(&backup);
-		if (line != NULL)
-			return (line);
-	}
-	line = ft_zero_bytes(&backup);
-	return (line);
+	slinelen = ft_strlen(sline) - ft_strlen(ft_strchr(sline, '\n')) + 1;
+	until_n = ft_substr(sline, 0, slinelen);
+	tline = sline;
+	sline = ft_substr(sline, slinelen, ft_strlen(sline));
+	free(tline);
+	return (until_n);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
+	int	i;
 
-char	*ft_strdup(const char *s)
-{
-	char	*str;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	str = (char *)malloc(sizeof(*s) * (ft_strlen(s) + 1));
-	if (!str)
-		return (NULL);
 	i = 0;
-	while (s[i])
+	while (s[i] != c)
 	{
-		str[i] = s[i];
+		if (s[i] == '\0')
+			return (0);
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	return ((char *)(s + i));
+}
+
+char	*ft_strdup(char *s1)
+{
+	char	*s;
+	size_t	i;
+
+	i = 0;
+	s = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + 1));
+	if (!s || !s1)
+		return (0);
+	while (s1[i])
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
 }

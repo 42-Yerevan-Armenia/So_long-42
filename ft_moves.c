@@ -72,7 +72,7 @@ void	ft_move_left(t_all *a)
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
 		a->img.player.x--;
 	}
-	else if (a->map.matrix[a->img.player.y][a->img.player.x] - 1 == 'C')
+	else if (a->map.matrix[a->img.player.y][a->img.player.x - 1] == 'C')
 	{
 		ft_fill_player(a, a->img.player.y, a->img.player.x - 1);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
@@ -98,7 +98,7 @@ void	ft_move_right(t_all *a)
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
 		a->img.player.x++;
 	}
-	else if (a->map.matrix[a->img.player.y][a->img.player.x] + 1 == 'C')
+	else if (a->map.matrix[a->img.player.y][a->img.player.x + 1] == 'C')
 	{
 		ft_fill_player(a, a->img.player.y, a->img.player.x + 1);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);

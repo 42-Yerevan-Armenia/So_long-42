@@ -26,6 +26,7 @@ void	ft_put_image(t_all *a, int i, int j)
 	{
 		(a->img.player.x) = j;
 		(a->img.player.y) = i;
+		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
 		mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * TEXTURE_X, i * TEXTURE_Y);
 		a->map.matrix[i][j] = '0';
 	}

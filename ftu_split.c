@@ -12,71 +12,61 @@
 
 #include "so_long.h"
 
-static int	ft_nbofwords(char *s, char c)
+static size_t	count_words(char const *s, char c)
 {
-	int	count;
-	int	is_word;
+	size_t	i;
 
-	count = 0;
-	is_word = 0;
+	i = 0;
 	while (*s)
 	{
-		if (is_word == 0 && *s != c)
+		i++;
+		while (*s && *s == c)
+			s++;
+		if (*s == '\0')
+			i--;
+		while (*s && *s != c)
+			s++;
+	}
+	return (i);
+}
+
+static char	**fill_string(char **store, char const *s, char c)
+{
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	while (*s)
+	{
+		if (*s != c)
 		{
-			is_word = 1;
-			count++;
+			len = 0;
+			while (*s && *s != c)
+			{
+				len++;
+				s++;
+			}
+			store[i++] = ft_substr(s - len, 0, len);
 		}
-		else if (is_word == 1 && *s == c)
-			is_word = 0;
-		s++;
+		else
+			s++;
 	}
-	return (count);
-}
-
-static int	ft_strlenword(char *s, char c)
-{
-	int	len;
-
-	len = 0;
-	while (*s != c && *s)
-	{
-		len++;
-		s++;
-	}
-	return (len);
-}
-
-static void	*my_free(char **tab, int i)
-{
-	while (i-- > 0)
-	{
-		free(tab[i]);
-	}
-	free(tab);
-	return (NULL);
+	store[i] = 0;
+	return (store);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int		nb_ofwords;
-	int		i;
-	char	**tab;
+	char	**split;
+	size_t	count;
 
-	i = 0;
-	nb_ofwords = ft_nbofwords((char *)s, c);
-	tab = (char **)malloc(nb_ofwords * sizeof(char *) + 1);
-	if (!tab)
+	if (!s)
 		return (NULL);
-	while (nb_ofwords--)
-	{
-		while (*s == c && *s)
-			s++;
-		tab[i] = ft_substr((char *)s, 0, ft_strlenword((char *)s, c));
-		if (!tab[i])
-			return (my_free(tab, i));
-		s = s + ft_strlenword((char *)s, c);
-		i++;
-	}
-	tab[i] = NULL;
-	return (tab);
+	count = count_words(s, c);
+	split = malloc(sizeof(char *) * (count + 1));
+	if (!split)
+		return (NULL);
+	split = fill_string(split, s, c);
+
+	return (split);
 }

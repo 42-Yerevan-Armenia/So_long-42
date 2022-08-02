@@ -76,9 +76,10 @@ void	ft_textures(t_img *img, void *mlx)
 	img->wall = mlx_xpm_file_to_image(mlx, WALL, &width, &height);
 	if (img->wall == NULL)
 		ft_error("❌ Can't Open Wall 🚧 Texture");
-	img->collect = mlx_xpm_file_to_image(mlx, COLLECT, &width, &height);
-	if (img->collect == NULL)
-		ft_error("Cant Open Collectible Texture");
+	img->coin = mlx_xpm_file_to_image(mlx, C1, &width, &height);
+	img->coin2 = mlx_xpm_file_to_image(mlx, C2, &width, &height);
+	if (img->coin == NULL)
+		ft_error("Cant Open Coin Texture");
 	img->exit = mlx_xpm_file_to_image(mlx, EXIT, &width, &height);
 	if (img->exit == NULL)
 		ft_error("Cant Open Exit Texture");
@@ -88,6 +89,34 @@ void	ft_textures(t_img *img, void *mlx)
 	(img->player.ptr) = mlx_xpm_file_to_image(mlx, PLAYER, &width, &height);
 	if ((img->player.ptr) == NULL)
 		ft_error("Cant Open Player Texture");
+}
+
+int	loop_hook(t_all *mlx)
+{
+	static int	stat;
+	int	i;
+	int	j;
+	
+	i = -1;
+
+	while (mlx->map.matrix[++i])
+	{
+		j = -1;
+		while (mlx->map.matrix[i][++j])
+		{
+			if (mlx->map.matrix[i][j] == 'C')
+			{
+				mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
+				if(stat % 5 == 0)
+					mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.coin, j * TEXTURE_X, i * TEXTURE_Y);
+				else
+					mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.coin2, j * TEXTURE_X, i * TEXTURE_Y);
+			}
+				// ft_put_image(mlx, i, j, stat % 5 == 0);
+			// if (mlx->map.matrix[i][j] == 'P')
+		}
+	}
+	stat++;
 }
 
 int	main(int ac, char *av[])
@@ -102,6 +131,7 @@ int	main(int ac, char *av[])
 		ft_textures(&(a.img), a.mlx);
 		ft_draw_map(&a);
 		mlx_hook(a.win, 2, 0, ft_key_press, &a);
+		mlx_loop_hook(a.mlx, &loop_hook, &a);
 		mlx_loop(a.mlx);
 	}
 	ft_error("❌ No Valid Argument❗️ \n➡️ ./so_long map_file.ber");

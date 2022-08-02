@@ -12,14 +12,21 @@
 
 #include "so_long.h"
 
-void	ft_put_image(t_all *a, int i, int j)
+
+void	ft_put_image(t_all *a, int i, int j, int cond)
 {
 	if (a->map.matrix[i][j] == '1')
 		mlx_put_image_to_window(a->mlx, a->win, a->img.wall, j * TEXTURE_X, i * TEXTURE_Y);
 	if (a->map.matrix[i][j] == '0')
 		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
 	if (a->map.matrix[i][j] == 'C')
-		mlx_put_image_to_window(a->mlx, a->win, a->img.collect, j * TEXTURE_X, i * TEXTURE_Y);
+	{
+		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
+		if (cond)
+			mlx_put_image_to_window(a->mlx, a->win, a->img.coin, j * TEXTURE_X, i * TEXTURE_Y);
+		else
+			mlx_put_image_to_window(a->mlx, a->win, a->img.coin2, j * TEXTURE_X, i * TEXTURE_Y);
+	}
 	if (a->map.matrix[i][j] == 'E')
 		mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * TEXTURE_X, i * TEXTURE_Y);
 	if (a->map.matrix[i][j] == 'P')
@@ -43,14 +50,14 @@ void	ft_draw_map(t_all *a)
 		j = 0;
 		while (a->map.matrix[i][j])
 		{
-			ft_put_image(a, i, j);
+			ft_put_image(a, i, j, 0);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	ft_check_num(char **n, int *collect)
+void	ft_check_num(char **n, int *coin)
 {
 	int	i;
 	int	j;
@@ -67,14 +74,14 @@ void	ft_check_num(char **n, int *collect)
 			if ((n[i][j] != 'C') && (n[i][j] != 'P') && (n[i][j] != 'E') && (n[i][j] != '1') && (n[i][j] != '0'))
 				ft_error("❌ No correct symbol in MAP 🗺");
 			if (n[i][j] == 'C')
-				(*collect)++;
+				(*coin)++;
 			else if (n[i][j] == 'E')
 				e_p[0]++;
 			else if (n[i][j] == 'P')
 				e_p[1]++;
 		}
 	}
-	if ((*collect) < 1 || e_p[0] < 1 || e_p[1] != 1)
+	if ((*coin) < 1 || e_p[0] < 1 || e_p[1] != 1)
 		ft_error("❌Map symbol count Error❗️");
 }
 
@@ -114,6 +121,6 @@ void	ft_check_map(t_map *map)
 	if (map->height <= 0 || map->width <= 0)
 		ft_error("❌ Not a Valid Map 🗺❗️");
 	ft_check_wall(map);
-	map->collect = 0;
-	ft_check_num(map->matrix, &(map->collect));
+	map->coin = 0;
+	ft_check_num(map->matrix, &(map->coin));
 }

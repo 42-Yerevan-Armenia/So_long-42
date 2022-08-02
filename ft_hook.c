@@ -18,35 +18,38 @@ int	ft_destroy_window(t_all *a)
 	mlx_destroy_window(a->mlx, a->win);
 	mlx_destroy_image(a->mlx, a->img.wall);
 	mlx_destroy_image(a->mlx, a->img.floor);
-	mlx_destroy_image(a->mlx, a->img.collect);
+	mlx_destroy_image(a->mlx, a->img.coin);
 	mlx_destroy_image(a->mlx, a->img.exit);
 	mlx_destroy_image(a->mlx, a->img.player.ptr);
+	printf(" ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ \n");
+	printf("❇️ CONGRATULATIONS!❇️ \n");
+	printf(" ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ \n");
 	exit(EXIT_SUCCESS);
-}	
+}
 
 static void	ft_check_key(int keycode, t_all *a)
 {
 	char	c;
-printf("%d\n", keycode);
+//printf("%d\n", keycode);
 	if (keycode == 0)
 	{
 		c = a->map.matrix[a->img.player.y][a->img.player.x - 1];
-		if (c == '0' || c == 'C' || (c == 'E' && a->map.collect == 0))
-			printf("Moves : %d\n", ++a->moves);
+		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
+			printf("⬅️  Move🦶  %d\n", ++a->moves);
 		ft_move_left(a);
 	}
 	if (keycode == 1)
 	{
 		c = a->map.matrix[a->img.player.y + 1][a->img.player.x];
-		if (c == '0' || c == 'C' || (c == 'E' && a->map.collect == 0))
-			printf("Moves : %d\n", ++a->moves);
+		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
+			printf("⬇️  Move🦶  %d\n", ++a->moves);
 		ft_move_down(a);
 	}
 	if (keycode == 2)
 	{
 		c = a->map.matrix[a->img.player.y][a->img.player.x + 1];
-		if (c == '0' || c == 'C' || (c == 'E' && a->map.collect == 0))
-			printf("Moves : %d\n", ++a->moves);
+		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
+			printf("➡️  Move🦶  %d\n", ++a->moves);
 		ft_move_right(a);
 	}
 }
@@ -61,8 +64,8 @@ int	ft_key_press(int keycode, t_all *a)
 	if (keycode == 13)
 	{
 		c = a->map.matrix[a->img.player.y - 1][a->img.player.x];
-		if (c == '0' || c == 'C' || (c == 'E' && a->map.collect == 0))
-			printf("Moves : %d\n", ++a->moves);
+		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
+			printf("⬆️  Move🦶  %d\n", ++a->moves);
 		ft_move_up(a);
 	}
 	return (0);

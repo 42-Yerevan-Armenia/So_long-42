@@ -25,12 +25,12 @@ void	ft_move_up(t_all *a)
 		ft_fill_player(a, a->img.player.y - 1, a->img.player.x);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
 		a->map.matrix[a->img.player.y - 1][a->img.player.x] = '0';
-		a->map.collect--;
+		a->map.coin--;
 		a->img.player.y--;
 	}
 	else if (a->map.matrix[a->img.player.y - 1][a->img.player.x] == 'E')
 	{
-		if (a->map.collect)
+		if (a->map.coin)
 			return ;
 		ft_fill_player(a, a->img.player.y - 1, a->img.player.x);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
@@ -51,12 +51,12 @@ void	ft_move_down(t_all *a)
 		ft_fill_player(a, a->img.player.y + 1, a->img.player.x);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
 		a->map.matrix[a->img.player.y + 1][a->img.player.x] = '0';
-		a->map.collect--;
+		a->map.coin--;
 		a->img.player.y++;
 	}
 	else if (a->map.matrix[a->img.player.y + 1][a->img.player.x] == 'E')
 	{
-		if (a->map.collect)
+		if (a->map.coin)
 			return ;
 		ft_fill_player(a, a->img.player.y + 1, a->img.player.x);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
@@ -77,12 +77,12 @@ void	ft_move_left(t_all *a)
 		ft_fill_player(a, a->img.player.y, a->img.player.x - 1);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
 		a->map.matrix[a->img.player.y][a->img.player.x - 1] = '0';
-		a->map.collect--;
+		a->map.coin--;
 		a->img.player.x--;
 	}
 	else if (a->map.matrix[a->img.player.y][a->img.player.x - 1] == 'E')
 	{
-		if (a->map.collect)
+		if (a->map.coin)
 			return ;
 		ft_fill_player(a, a->img.player.y, a->img.player.x - 1);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
@@ -103,12 +103,12 @@ void	ft_move_right(t_all *a)
 		ft_fill_player(a, a->img.player.y, a->img.player.x + 1);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);
 		a->map.matrix[a->img.player.y][a->img.player.x + 1] = '0';
-		a->map.collect--;
+		a->map.coin--;
 		a->img.player.x++;
 	}
 	else if (a->map.matrix[a->img.player.y][a->img.player.x + 1] == 'E')
 	{
-		if (a->map.collect)
+		if (a->map.coin)
 			return ;
 		ft_fill_player(a, a->img.player.y, a->img.player.x + 1);
 		ft_fill_floor(a, a->img.player.y, a->img.player.x);

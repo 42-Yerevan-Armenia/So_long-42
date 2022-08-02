@@ -20,20 +20,28 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define TEXTURE_X 32
+# define TEXTURE_Y 32
 # define WALL "./Texture/wall.xpm"
 # define EXIT "./Texture/exit.xpm"
 # define FLOOR "./Texture/floor.xpm"
-# define COLLECT "./Texture/collect.xpm"
+# define C1 "./Texture/Coin/coin5.xpm"
+# define C2 "./Texture/Coin/coin7.xpm"
+
 # define PLAYER "./Texture/player.xpm"
-# define TEXTURE_X 32
-# define TEXTURE_Y 32
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
 
 //MAP
 typedef struct s_map
 {
 	int		width;
 	int 	height;
-	int 	collect;
+	int 	coin;
 	char	**matrix;
 }				t_map;
 
@@ -50,8 +58,10 @@ typedef struct s_img
 {
 	void		*wall;
 	void		*floor;
-	void		*collect;
+	void		*coin;
+	void		*coin2;
 	void		*exit;
+	void		*id;
 	t_player	player;
 }				t_img;
 
@@ -91,8 +101,8 @@ void	ft_fill_exit(t_all *a, int i, int j);
 //MAP 🗺
 void	ft_map(t_map *map, const char *mpath);
 void	ft_draw_map(t_all *a);
-void	ft_put_image(t_all *a, int i, int j);
-void	ft_check_num(char **n, int *collect);
+void	ft_put_image(t_all *a, int i, int j, int cond);
+void	ft_check_num(char **n, int *coin);
 void	ft_check_wall(t_map *map);
 void	ft_check_map(t_map *map);
 //void	ft_mapsize(char **pam, int *width, int *height);???

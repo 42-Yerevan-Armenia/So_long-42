@@ -38,7 +38,7 @@ void	ft_map(t_map *map, const char *mpath)
 	{
 		line = get_next_line(fd);
 		str = ft_strjoin(str, line);
-		if (*line == (char)NULL)
+		if (*line == (char) NULL)
 			break ;
 	}
 	free(line);
@@ -59,7 +59,8 @@ void	ft_win(t_all *a)
 		ft_free_matrix(&(a->map.matrix));
 		ft_error("❌ Can't do it 🤣");
 	}
-	a->win = mlx_new_window(a->mlx, a->map.width * TEXTURE_Y, a->map.height * TEXTURE_X, "so_long");
+	a->win = mlx_new_window(a->mlx, a->map.width * Y, \
+		a->map.height * X, "so_long");
 	if (a->win == NULL)
 	{
 		ft_free_matrix(&(a->map.matrix));
@@ -81,6 +82,7 @@ void	ft_textures(t_img *img, void *mlx)
 	if (img->coin == NULL)
 		ft_error("Cant Open Coin Texture");
 	img->exit = mlx_xpm_file_to_image(mlx, EXIT, &width, &height);
+	img->lock = mlx_xpm_file_to_image(mlx, LOCK, &width, &height);
 	if (img->exit == NULL)
 		ft_error("Cant Open Exit Texture");
 	img->floor = mlx_xpm_file_to_image(mlx, FLOOR, &width, &height);
@@ -89,34 +91,6 @@ void	ft_textures(t_img *img, void *mlx)
 	(img->player.ptr) = mlx_xpm_file_to_image(mlx, PLAYER, &width, &height);
 	if ((img->player.ptr) == NULL)
 		ft_error("Cant Open Player Texture");
-}
-
-int	loop_hook(t_all *mlx)
-{
-	static int	stat;
-	int	i;
-	int	j;
-	
-	i = -1;
-
-	while (mlx->map.matrix[++i])
-	{
-		j = -1;
-		while (mlx->map.matrix[i][++j])
-		{
-			if (mlx->map.matrix[i][j] == 'C')
-			{
-				mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
-				if(stat % 5 == 0)
-					mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.coin, j * TEXTURE_X, i * TEXTURE_Y);
-				else
-					mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.coin2, j * TEXTURE_X, i * TEXTURE_Y);
-			}
-				// ft_put_image(mlx, i, j, stat % 5 == 0);
-			// if (mlx->map.matrix[i][j] == 'P')
-		}
-	}
-	stat++;
 }
 
 int	main(int ac, char *av[])

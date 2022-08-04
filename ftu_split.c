@@ -67,6 +67,5 @@ char	**ft_split(char const *s, char c)
 	if (!split)
 		return (NULL);
 	split = fill_string(split, s, c);
-
 	return (split);
 }

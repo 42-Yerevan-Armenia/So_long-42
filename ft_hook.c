@@ -12,25 +12,39 @@
 
 #include "so_long.h"
 
-int	ft_destroy_window(t_all *a)
+int	loop_hook(t_all *a)
 {
-	ft_free_matrix(&(a->map.matrix));
-	mlx_destroy_window(a->mlx, a->win);
-	mlx_destroy_image(a->mlx, a->img.wall);
-	mlx_destroy_image(a->mlx, a->img.floor);
-	mlx_destroy_image(a->mlx, a->img.coin);
-	mlx_destroy_image(a->mlx, a->img.exit);
-	mlx_destroy_image(a->mlx, a->img.player.ptr);
-	printf(" ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ \n");
-	printf("❇️ CONGRATULATIONS!❇️ \n");
-	printf(" ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ ❇️ \n");
-	exit(EXIT_SUCCESS);
+	static int	stat;
+	int			i;
+	int			j;
+
+	mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
+	i = -1;
+	while (a->map.matrix[++i])
+	{
+		j = -1;
+		while (a->map.matrix[i][++j])
+		{
+			if (a->map.matrix[i][j] == 'C')
+			{
+				mlx_put_image_to_window(a->mlx, a->win, a->img.floor, \
+					j * X, i * Y);
+				if (stat % 15 == 0)
+					mlx_put_image_to_window(a->mlx, a->win, a->img.coin, \
+						j * X, i * Y);
+				else
+					mlx_put_image_to_window(a->mlx, a->win, a->img.coin2, \
+						j * X, i * Y);
+			}
+		}
+	}
+	return (stat++);
 }
 
 static void	ft_check_key(int keycode, t_all *a)
 {
 	char	c;
-//printf("%d\n", keycode);
+
 	if (keycode == 0)
 	{
 		c = a->map.matrix[a->img.player.y][a->img.player.x - 1];
@@ -58,7 +72,7 @@ int	ft_key_press(int keycode, t_all *a)
 {
 	char	c;
 
-	if (keycode == 53)//ESC
+	if (keycode == 53)
 		ft_destroy_window(a);
 	ft_check_key(keycode, a);
 	if (keycode == 13)
@@ -83,7 +97,7 @@ void	ft_free_matrix(char ***m)
 {
 	int	i;
 
-	if(!m || !*m)
+	if (!m || !*m)
 		return ;
 	i = 0;
 	while ((*m)[i])

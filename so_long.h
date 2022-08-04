@@ -20,14 +20,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define TEXTURE_X 32
-# define TEXTURE_Y 32
+# define X 32
+# define Y 32
 # define WALL "./Texture/wall.xpm"
+# define LOCK "./Texture/lock.xpm"
 # define EXIT "./Texture/exit.xpm"
 # define FLOOR "./Texture/floor.xpm"
-# define C1 "./Texture/Coin/coin5.xpm"
-# define C2 "./Texture/Coin/coin7.xpm"
-
+# define C1 "./Texture/Coin/coin2.xpm"
+# define C2 "./Texture/Coin/coin5.xpm"
 # define PLAYER "./Texture/player.xpm"
 
 typedef struct s_list
@@ -40,8 +40,8 @@ typedef struct s_list
 typedef struct s_map
 {
 	int		width;
-	int 	height;
-	int 	coin;
+	int		height;
+	int		coin;
 	char	**matrix;
 }				t_map;
 
@@ -60,6 +60,7 @@ typedef struct s_img
 	void		*floor;
 	void		*coin;
 	void		*coin2;
+	void		*lock;
 	void		*exit;
 	void		*id;
 	t_player	player;
@@ -91,31 +92,40 @@ void	ft_move_up(t_all *a);
 void	ft_move_down(t_all *a);
 void	ft_move_left(t_all *a);
 void	ft_move_right(t_all *a);
+void	ft_move_up2(t_all *a);
+void	ft_move_down2(t_all *a);
+void	ft_move_left2(t_all *a);
+void	ft_move_right2(t_all *a);
 
 //TEXTURES 🎨
 void	ft_textures(t_img *img, void *mlx);
 void	ft_fill_player(t_all *a, int i, int j);
 void	ft_fill_floor(t_all *a, int i, int j);
 void	ft_fill_exit(t_all *a, int i, int j);
+void	ft_fill_lock(t_all *a, int i, int j);
+void	ft_fill_locked_exit(t_all *a, int i, int j);
+int		loop_hook(t_all *a);
 
 //MAP 🗺
 void	ft_map(t_map *map, const char *mpath);
 void	ft_draw_map(t_all *a);
-void	ft_put_image(t_all *a, int i, int j, int cond);
+void	ft_put_image(t_all *a, int i, int j);
+void	ft_put_image2(t_all *a, int i, int j);
+void	ft_put_coin(t_all *a, int i, int j, int cond);
 void	ft_check_num(char **n, int *coin);
 void	ft_check_wall(t_map *map);
 void	ft_check_map(t_map *map);
-//void	ft_mapsize(char **pam, int *width, int *height);???
 
 //LIBFT 📚
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
 char	*ft_strjoin(char *s1, char const *s2);
-char	*ft_substr(char	const *s, unsigned int start, size_t len);//char const *s,
-char	**ft_split(char const *s, char c);//char const *s,
+char	*ft_substr(char	const *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
 
 //UTILES 🛠
-//# define BUFFER_SIZE 100
+# define BUFFER_SIZE 100
+
 char	*get_next_line(int fd);
 char	*ft_strdup(char *s1);
 char	*ft_strchr(char *s, int c);

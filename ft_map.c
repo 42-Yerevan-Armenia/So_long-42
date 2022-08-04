@@ -12,29 +12,24 @@
 
 #include "so_long.h"
 
-
-void	ft_put_image(t_all *a, int i, int j, int cond)
+void	ft_put_image(t_all *a, int i, int j)
 {
 	if (a->map.matrix[i][j] == '1')
-		mlx_put_image_to_window(a->mlx, a->win, a->img.wall, j * TEXTURE_X, i * TEXTURE_Y);
+		mlx_put_image_to_window(a->mlx, a->win, a->img.wall, j * X, i * Y);
 	if (a->map.matrix[i][j] == '0')
-		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
-	if (a->map.matrix[i][j] == 'C')
-	{
-		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
-		if (cond)
-			mlx_put_image_to_window(a->mlx, a->win, a->img.coin, j * TEXTURE_X, i * TEXTURE_Y);
-		else
-			mlx_put_image_to_window(a->mlx, a->win, a->img.coin2, j * TEXTURE_X, i * TEXTURE_Y);
-	}
+		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
 	if (a->map.matrix[i][j] == 'E')
-		mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * TEXTURE_X, i * TEXTURE_Y);
+	{
+		mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
+		mlx_put_image_to_window(a->mlx, a->win, a->img.lock, j * X, i * Y);
+	}
 	if (a->map.matrix[i][j] == 'P')
 	{
 		(a->img.player.x) = j;
 		(a->img.player.y) = i;
-		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
-		mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * TEXTURE_X, i * TEXTURE_Y);
+		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
+		mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, \
+			j * X, i * Y);
 		a->map.matrix[i][j] = '0';
 	}
 }
@@ -50,7 +45,8 @@ void	ft_draw_map(t_all *a)
 		j = 0;
 		while (a->map.matrix[i][j])
 		{
-			ft_put_image(a, i, j, 0);
+			ft_put_image(a, i, j);
+			ft_put_coin(a, i, j, 0);
 			j++;
 		}
 		i++;
@@ -61,7 +57,7 @@ void	ft_check_num(char **n, int *coin)
 {
 	int	i;
 	int	j;
-	int	e_p[2];//exit -> player
+	int	e_p[2];
 
 	e_p[0] = 0;
 	e_p[1] = 0;
@@ -71,7 +67,8 @@ void	ft_check_num(char **n, int *coin)
 		j = -1;
 		while (n[i][++j])
 		{
-			if ((n[i][j] != 'C') && (n[i][j] != 'P') && (n[i][j] != 'E') && (n[i][j] != '1') && (n[i][j] != '0'))
+			if ((n[i][j] != 'C') && (n[i][j] != 'P') && (n[i][j] != 'E') \
+				&& (n[i][j] != '1') && (n[i][j] != '0'))
 				ft_error("❌ No correct symbol in MAP 🗺");
 			if (n[i][j] == 'C')
 				(*coin)++;
@@ -102,7 +99,8 @@ void	ft_check_wall(t_map *map)
 				ft_error("❌ The map not closed/surrounded by walls 🚧");
 			else if (i == map->height - 1 && map->matrix[i][j] != '1')
 				ft_error("❌ The map not closed/surrounded by walls 🚧");
-			else if ((j == map->width - 1 && map->matrix[i][j] != '1') || map->matrix[i][map->width] != '\0')
+			else if ((j == map->width - 1 && map->matrix[i][j] != '1') || \
+				map->matrix[i][map->width] != '\0')
 				ft_error("❌ The map not closed/surrounded by walls 🚧");
 			j++;
 		}

@@ -12,18 +12,31 @@
 
 #include "so_long.h"
 
-void	ft_fill_player(t_all *a, int i, int j)
-{
-	mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
-	mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * TEXTURE_X, i * TEXTURE_Y);
-}
-
 void	ft_fill_floor(t_all *a, int i, int j)
 {
-	mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * TEXTURE_X, i * TEXTURE_Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
 }
 
-void	ft_fill_(t_all *a, int i, int j)
+void	ft_fill_player(t_all *a, int i, int j)
 {
-	mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * TEXTURE_X, i * TEXTURE_Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * X, i * Y);
+}
+
+void	ft_fill_exit(t_all *a, int i, int j)
+{
+	mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
+}
+
+void	ft_fill_locked_exit(t_all *a, int i, int j)
+{
+	mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.lock, j * X, i * Y);
+}
+
+void	ft_fill_lock(t_all *a, int i, int j)
+{
+	mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.lock, j * X, i * Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * X, i * Y);
 }

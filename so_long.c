@@ -75,7 +75,7 @@ void	ft_textures(t_img *img, void *mlx)
 	int	height;
 
 	img->wall = mlx_xpm_file_to_image(mlx, WALL, &width, &height);
-	if (img->wall == NULL)
+	if ((img->wall) == NULL)
 		ft_error("❌ Can't Open Wall 🚧 Texture");
 	img->coin = mlx_xpm_file_to_image(mlx, C1, &width, &height);
 	img->coin2 = mlx_xpm_file_to_image(mlx, C2, &width, &height);
@@ -88,9 +88,12 @@ void	ft_textures(t_img *img, void *mlx)
 	img->floor = mlx_xpm_file_to_image(mlx, FLOOR, &width, &height);
 	if (img->floor == NULL)
 		ft_error("Cant Open Floor Texture");
-	(img->player.ptr) = mlx_xpm_file_to_image(mlx, PLAYER, &width, &height);
-	if ((img->player.ptr) == NULL)
+	(img->player_r.ptr) = mlx_xpm_file_to_image(mlx, PLAYER_R, &width, &height);
+	(img->player_l.ptr) = mlx_xpm_file_to_image(mlx, PLAYER_L, &width, &height);
+	if ((img->player_r.ptr) == NULL)
 		ft_error("Cant Open Player Texture");
+	img->monster = mlx_xpm_file_to_image(mlx, M1, &width, &height);
+	img->monster2 = mlx_xpm_file_to_image(mlx, M2, &width, &height);
 }
 
 int	main(int ac, char *av[])

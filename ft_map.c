@@ -18,18 +18,15 @@ void	ft_put_image(t_all *a, int i, int j)
 		mlx_put_image_to_window(a->mlx, a->win, a->img.wall, j * X, i * Y);
 	if (a->map.matrix[i][j] == '0')
 		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
+	if (a->map.matrix[i][j] == 'M')
+		ft_fill_monster(a, i, j);
 	if (a->map.matrix[i][j] == 'E')
-	{
-		mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
-		mlx_put_image_to_window(a->mlx, a->win, a->img.lock, j * X, i * Y);
-	}
+		ft_fill_locked_exit(a, i, j);
 	if (a->map.matrix[i][j] == 'P')
 	{
-		(a->img.player.x) = j;
-		(a->img.player.y) = i;
-		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
-		mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, \
-			j * X, i * Y);
+		(a->img.player_r.x) = j;
+		(a->img.player_r.y) = i;
+		ft_fill_player(a, i, j);
 		a->map.matrix[i][j] = '0';
 	}
 }
@@ -47,6 +44,7 @@ void	ft_draw_map(t_all *a)
 		{
 			ft_put_image(a, i, j);
 			ft_put_coin(a, i, j, 0);
+			ft_put_monster(a, i, j, 0);
 			j++;
 		}
 		i++;
@@ -68,7 +66,7 @@ void	ft_check_num(char **n, int *coin)
 		while (n[i][++j])
 		{
 			if ((n[i][j] != 'C') && (n[i][j] != 'P') && (n[i][j] != 'E') \
-				&& (n[i][j] != '1') && (n[i][j] != '0'))
+				&& (n[i][j] != '1') && (n[i][j] != '0' && (n[i][j] != 'M')))
 				ft_error("❌ No correct symbol in MAP 🗺");
 			if (n[i][j] == 'C')
 				(*coin)++;

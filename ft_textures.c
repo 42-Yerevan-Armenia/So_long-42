@@ -20,7 +20,7 @@ void	ft_fill_floor(t_all *a, int i, int j)
 void	ft_fill_player(t_all *a, int i, int j)
 {
 	mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
-	mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * X, i * Y);
+	mlx_put_image_to_window(a->mlx, a->win, a->img.player_l.ptr, j * X, i * Y);
 }
 
 void	ft_fill_exit(t_all *a, int i, int j)
@@ -34,9 +34,14 @@ void	ft_fill_locked_exit(t_all *a, int i, int j)
 	mlx_put_image_to_window(a->mlx, a->win, a->img.lock, j * X, i * Y);
 }
 
-void	ft_fill_lock(t_all *a, int i, int j)
+void	ft_fill_lock(t_all *a, int i, int j, int dir)
 {
 	mlx_put_image_to_window(a->mlx, a->win, a->img.exit, j * X, i * Y);
 	mlx_put_image_to_window(a->mlx, a->win, a->img.lock, j * X, i * Y);
-	mlx_put_image_to_window(a->mlx, a->win, a->img.player.ptr, j * X, i * Y);
+	if (dir == 'd')
+		mlx_put_image_to_window(a->mlx, a->win, a->img.player_l.ptr, \
+			j * X, i * Y);
+	else
+		mlx_put_image_to_window(a->mlx, a->win, a->img.player_r.ptr, \
+			j * X, i * Y);
 }

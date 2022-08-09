@@ -1,10 +1,10 @@
 # So_long-42
 
-Links:
+![gif_1](https://github.com/42-Yerevan-Armenia/So_long-42/blob/master/big_start.gif)
 
-![gif_1](https://github.com/42-Yerevan-Armenia/So_long-42/big_start.gif)
+![gif_2](https://github.com/42-Yerevan-Armenia/So_long-42/blob/master/big_end.gif)
 
-![gif_2](https://github.com/42-Yerevan-Armenia/So_long-42/big_end.gif)
+## Links
 
 https://picresize.com/
 

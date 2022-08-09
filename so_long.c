@@ -44,7 +44,7 @@ void	ft_map(t_map *map, const char *mpath)
 	free(line);
 	if (close(fd) == -1)
 		ft_error("❌ Can't close Map File 🗺");
-	map->matrix = ft_split(str, '\n');
+	ft_check_split(map, str);
 	ft_free_array(&str);
 	if (!(*(map->matrix)))
 		ft_error("❌ Can't split❗️");
@@ -66,7 +66,7 @@ void	ft_win(t_all *a)
 		ft_free_matrix(&(a->map.matrix));
 		ft_error("❌ Can't Creat Window 📺");
 	}
-	mlx_hook(a->win, 17, 0, ft_destroy_window, a);
+	mlx_hook(a->win, 17, 0, ft_destroy_window_2, a);
 }
 
 void	ft_textures(t_img *img, void *mlx)

@@ -133,6 +133,7 @@ void	ft_put_monster(t_all *a, int i, int j, int cond);
 void	ft_check_num(char **n, int *coin);
 void	ft_check_wall(t_map *map);
 void	ft_check_map(t_map *map);
+void	ft_check_split(t_map *map, char *str);
 
 //LIBFT 📚
 size_t	ft_strlen(const char *str);

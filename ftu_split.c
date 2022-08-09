@@ -12,6 +12,23 @@
 
 #include "so_long.h"
 
+void	ft_check_split(t_map *map, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\n' && str[i + 1] == '\n')
+		{
+			ft_error("❌ Can't split❗️");
+			exit(0);
+		}
+		i++;
+	}
+	map->matrix = ft_split(str, '\n');
+}
+
 static size_t	count_words(char const *s, char c)
 {
 	size_t	i;

@@ -2,11 +2,9 @@
 
 Links:
 
-![](https://github.com/42-Yerevan-Armenia/So_long-42/big_start.gif)
+![gif_1](https://github.com/42-Yerevan-Armenia/So_long-42/big_start.gif)
 
-![](https://github.com/42-Yerevan-Armenia/So_long-42/big_end.gif)
-
-https://drive.google.com/drive/folders/1Yx5Wmk4GLPMX01SfRCDtB2hr4RaQ1R4q
+![gif_2](https://github.com/42-Yerevan-Armenia/So_long-42/big_end.gif)
 
 https://picresize.com/
 

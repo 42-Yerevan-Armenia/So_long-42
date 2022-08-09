@@ -42,6 +42,7 @@ void	ft_put_coin(t_all *a, int i, int j, int cond)
 	if (a->map.matrix[i][j] == 'C')
 	{
 		mlx_put_image_to_window(a->mlx, a->win, a->img.floor, j * X, i * Y);
+		mlx_string_put(a->mlx, a->win, 0, 0, 0xccccff, "SCORE");
 		if (cond)
 			mlx_put_image_to_window(a->mlx, a->win, a->img.coin, j * X, i * Y);
 		else

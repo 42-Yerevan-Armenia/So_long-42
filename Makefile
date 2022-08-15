@@ -1,8 +1,8 @@
 RED		= \033[0;31m
-GREEN	= \033[0;32m
-YELLOW	= \033[1;33m
-RESET	= \033[0;37m
-BLUE	= \033[0;36m
+GREEN		= \033[0;32m
+YELLOW		= \033[1;33m
+RESET		= \033[0;37m
+BLUE		= \033[0;36m
 SKY		= \033[1;36m
 
 NAME		=	so_long
@@ -11,9 +11,9 @@ SRCS		=	$(shell find "." -name "*.c")
 				
 OBJS		=	$(SRCS:.c=.o)
 
-CC			=	cc
+CC		=	cc
 
-RM			=	rm -f
+RM		=	rm -f
 
 CFLAGS		=	-Wall -Werror -Wextra -Imlx
 

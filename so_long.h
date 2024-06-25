@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 16:43:11 by arakhurs          #+#    #+#             */
-/*   Updated: 2022/07/25 16:43:13 by arakhurs         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:25:19 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_map
 	int		width;
 	int		height;
 	int		coin;
+	char	*str;
 	char	**matrix;
 }				t_map;
 

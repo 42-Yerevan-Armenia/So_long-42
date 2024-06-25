@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 14:23:17 by arakhurs          #+#    #+#             */
-/*   Updated: 2022/07/30 14:23:30 by arakhurs         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:22:01 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*mywhile(int fd, char *sline)
 	long	rsize;
 
 	while (1)
-	{	
+	{
 		rsize = read(fd, buffer, 1);
 		buffer[rsize] = '\0';
 		if (rsize == -1)

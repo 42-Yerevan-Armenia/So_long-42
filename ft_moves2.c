@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_moves2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 20:20:24 by arakhurs          #+#    #+#             */
-/*   Updated: 2022/08/04 20:20:25 by arakhurs         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:21:47 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_fill_player_2(t_all *a, int i, int j)
 void	ft_move_up2(t_all *a)
 {
 	if (a->map.matrix[a->img.player_r.y - 1][a->img.player_r.x] == 'E')
-	{	
+	{
 		ft_fill_floor(a, a->img.player_r.y, a->img.player_r.x);
 		a->map.matrix[a->img.player_r.y - 1][a->img.player_r.x] = 'E';
 		ft_fill_lock(a, a->img.player_r.y - 1, a->img.player_r.x, 0);
@@ -35,7 +35,7 @@ void	ft_move_up2(t_all *a)
 void	ft_move_down2(t_all *a)
 {
 	if (a->map.matrix[a->img.player_r.y + 1][a->img.player_r.x] == 'E')
-	{	
+	{
 		ft_fill_floor(a, a->img.player_r.y, a->img.player_r.x);
 		a->map.matrix[a->img.player_r.y + 1][a->img.player_r.x] = 'E';
 		ft_fill_lock(a, a->img.player_r.y + 1, a->img.player_r.x, 'd');
@@ -63,7 +63,7 @@ void	ft_move_left2(t_all *a)
 void	ft_move_right2(t_all *a)
 {
 	if (a->map.matrix[a->img.player_r.y][a->img.player_r.x + 1] == 'E')
-	{	
+	{
 		ft_fill_floor(a, a->img.player_r.y, a->img.player_r.x);
 		a->map.matrix[a->img.player_r.y][a->img.player_r.x + 1] = 'E';
 		ft_fill_lock(a, a->img.player_r.y, a->img.player_r.x + 1, 'd');

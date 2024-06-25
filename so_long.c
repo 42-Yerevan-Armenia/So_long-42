@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 16:42:28 by arakhurs          #+#    #+#             */
-/*   Updated: 2022/07/25 16:42:30 by arakhurs         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:25:07 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ void	ft_error(char *str)
 void	ft_map(t_map *map, const char *mpath)
 {
 	char	*line;
-	char	*str;
 	int		fd;
 
-	str = NULL;
+	map->str = NULL;
 	if (ft_strncmp(".ber", (mpath + (ft_strlen(mpath) - 4)), 4) != 0)
 		ft_error("❌ Map format is not *.ber");
 	fd = open(mpath, O_RDONLY);
@@ -37,15 +36,16 @@ void	ft_map(t_map *map, const char *mpath)
 	while (1)
 	{
 		line = get_next_line(fd);
-		str = ft_strjoin(str, line);
+		map->str = ft_strjoin(map->str, line);
 		if (*line == (char) NULL)
 			break ;
+		free(line);
 	}
 	free(line);
 	if (close(fd) == -1)
 		ft_error("❌ Can't close Map File 🗺");
-	ft_check_split(map, str);
-	ft_free_array(&str);
+	ft_check_split(map, map->str);
+	ft_free_array(&map->str);
 	if (!(*(map->matrix)))
 		ft_error("❌ Can't split❗️");
 	ft_check_map(map);

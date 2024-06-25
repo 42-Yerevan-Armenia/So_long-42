@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: arakhurs <arakhurs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 19:55:02 by arakhurs          #+#    #+#             */
-/*   Updated: 2022/07/28 19:55:04 by arakhurs         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:35:21 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ static void	ft_check_key(int keycode, t_all *a)
 {
 	char	c;
 
-	if (keycode == 0)
+	if (keycode == 0 || keycode == 123)
 	{
 		c = a->map.matrix[a->img.player_r.y][a->img.player_r.x - 1];
 		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
 			ft_printf("⬅️  Move🦶  %d\n", ++a->moves);
 		ft_move_left(a);
 	}
-	if (keycode == 1)
+	if (keycode == 1 || keycode == 125)
 	{
 		c = a->map.matrix[a->img.player_r.y + 1][a->img.player_r.x];
 		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
 			ft_printf("⬇️  Move🦶  %d\n", ++a->moves);
 		ft_move_down(a);
 	}
-	if (keycode == 2)
+	if (keycode == 2 || keycode == 124)
 	{
 		c = a->map.matrix[a->img.player_r.y][a->img.player_r.x + 1];
 		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
@@ -68,7 +68,7 @@ int	ft_key_press(int keycode, t_all *a)
 	if (keycode == 53)
 		ft_destroy_window_2(a);
 	ft_check_key(keycode, a);
-	if (keycode == 13)
+	if (keycode == 13 || keycode == 126)
 	{
 		c = a->map.matrix[a->img.player_r.y - 1][a->img.player_r.x];
 		if (c == '0' || c == 'C' || (c == 'E' && a->map.coin == 0))
